@@ -1,7 +1,8 @@
 Flask==2.2.5
+Flask-SQLAlchemy==2.5.1
+SQLAlchemy==1.4.46
 gunicorn==21.2.0
 waitress==2.1.2
 python-dotenv==1.0.1
 psycopg2==2.9.6
-Flask-SQLAlchemy==2.5.1
 yoyo-migrations==7.0.0
