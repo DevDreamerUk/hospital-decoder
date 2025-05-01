@@ -3,5 +3,5 @@ gunicorn==21.2.0
 waitress==2.1.2
 python-dotenv==1.0.1
 psycopg2==2.9.6
-Flask-SQLAlchemy==3.0.0
+Flask-SQLAlchemy==1.4.46
 yoyo-migrations==7.0.0
