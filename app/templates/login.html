@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login - Medical Portal</title>
+  <style>
+    /* General reset and font */
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background-color: #ffffff;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Background container for floating medical words */
+    .background-texts {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none; /* allow clicks through */
+      user-select: none; /* prevent text selection */
+    }
+    .background-texts span {
+      position: absolute;
+      font-weight: 700;
+      color: #0077ff;
+      opacity: 0;
+      white-space: nowrap;
+      animation-name: fadeInOutMove;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+      animation-fill-mode: forwards;
+      text-shadow: 0 0 10px rgba(0, 119, 255, 0.7);
+    }
+
+    /* Animation for fading in, moving, and fading out */
+    @keyframes fadeInOutMove {
+      0%, 100% { opacity: 0; transform: translate(0, 0); }
+      10%, 80% { opacity: 0.2; }
+      50% { opacity: 0.4; transform: translate(20px, -30px); }
+    }
+
+    /* Different positions, font sizes, animation timing for each word */
+    .background-texts span:nth-child(1) {
+      top: 10%;
+      left: 15%;
+      font-size: 70px;
+      animation-duration: 15s;
+      animation-delay: 0s;
+    }
+    .background-texts span:nth-child(2) {
+      top: 30%;
+      left: 55%;
+      font-size: 60px;
+      animation-duration: 14s;
+      animation-delay: 5s;
+    }
+    /* Add more nth-child selectors for all spans... */
+
+    /* Container for login form */
+    .login-container {
+      position: relative;
+      z-index: 10; /* above background words */
+      background: #fff;
+      border-radius: 24px;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+      padding: 60px 50px 50px 50px;
+      width: 100%;
+      max-width: 480px;
+      margin: auto;
+      top: 50%;
+      transform: translateY(-50%);
+      text-align: center;
+    }
+
+    h2 {
+      margin: 0 0 30px 0;
+      color: #333;
+      font-weight: 700;
+      font-size: 28px;
+      letter-spacing: 0.04em;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+    .input-group {
+      position: relative;
+      width: 100%;
+    }
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 14px 50px 14px 40px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 16px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      color: #333;
+      background-color: #fff;
+    }
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+      border-color: #0077ff;
+      box-shadow: 0 0 6px rgba(0, 119, 255, 0.2);
+      outline: none;
+    }
+
+    /* SVG icons inside input fields */
+    .input-group svg {
+      position: absolute;
+      top: 50%;
+      left: 12px;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      fill: #0077ff;
+      pointer-events: none; /* ignore mouse events */
+    }
+
+    /* Login button styling */
+    button {
+      width: 100%;
+      padding: 14px 18px;
+      background-color: #0077ff;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.4s ease, transform 0.2s ease;
+    }
+    button:hover {
+      background-color: #28a745; /* change to green on hover */
+      transform: scale(1.03);
+    }
+
+    .register-link {
+      margin-top: 30px;
+      font-size: 15px;
+      color: #555;
+    }
+    .register-link a {
+      color: #0077ff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+    .register-link a:hover {
+      color: #005fcb;
+    }
+  </style>
+</head>
+<body>
+  <!-- Background floating medical words -->
+  <div class="background-texts">
+    <span>Лікування</span>
+    <span>Здоров’я</span>
+    <span>Діагностика</span>
+    <span>Профілактика</span>
+    <span>Реабілітація</span>
+    <span>Медикаменти</span>
+    <span>Пульс</span>
+    <span>Вакцинація</span>
+    <span>Терапія</span>
+    <span>Дієта</span>
+    <span>Хірургія</span>
+    <span>Аналізи</span>
+    <span>Серце</span>
+    <span>Відновлення</span>
+    <span>Пацієнт</span>
+    <span>Лікар</span>
+    <span>Аптека</span>
+    <span>Санітарія</span>
+    <span>Обстеження</span>
+    <span>Тестування</span>
+    <span>Медсестра</span>
+    <span>Екстрена допомога</span>
+    <span>Біохімія</span>
+    <span>Симптоми</span>
+    <span>Рецепт</span>
+    <span>Вітаміни</span>
+    <span>Операція</span>
+    <span>Стоматологія</span>
+    <span>Анестезія</span>
+    <span>Психологія</span>
+    <span>Відпочинок</span>
+    <span>Фізіотерапія</span>
+    <span>Тиск</span>
+    <span>Інфекція</span>
+    <span>Гігієна</span>
+    <span>Пульмонологія</span>
+    <span>Рентген</span>
+    <span>Диспансер</span>
+    <span>Імунітет</span>
+  </div>
+
+  <!-- Login form container -->
+  <div class="login-container">
+    <h2>Увійти в медичний портал</h2>
+    <form method="POST" novalidate>
+      <div class="input-group">
+        <!-- User icon -->
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 12c2.21 0 4-1.79 4-4S14.21 4 12 4 8 5.79 8 8s1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+        </svg>
+        <input type="text" name="username" placeholder="Ім’я користувача" required />
+      </div>
+      <div class="input-group">
+        <!-- Lock icon -->
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 17a2 2 0 0 0 2-2v-3a2 2 0 1 0-4 0v3a2 2 0 0 0 2 2zm6-5v-2a6 6 0 0 0-12 0v2H4v8h16v-8h-2z"/>
+        </svg>
+        <input type="password" name="password" placeholder="Пароль" required />
+      </div>
+      <button type="submit">Увійти</button>
+    </form>
+    <div class="register-link">
+      Немає акаунта? <a href="/register">Зареєструватися</a>
+    </div>
+  </div>
+</body>
+</html>
