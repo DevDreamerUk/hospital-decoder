@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Login - Medical Portal</title>
+  <title>Логін - Медичний портал</title>
   <style>
-    /* General reset and font */
     * {
       box-sizing: border-box;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -19,14 +18,14 @@
       position: relative;
     }
 
-    /* Background container for floating medical words */
+    /* Фон з плаваючими медичними фразами */
     .background-texts {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
       z-index: 0;
       overflow: hidden;
-      pointer-events: none; /* allow clicks through */
-      user-select: none; /* prevent text selection */
+      pointer-events: none;
+      user-select: none;
     }
     .background-texts span {
       position: absolute;
@@ -41,14 +40,13 @@
       text-shadow: 0 0 10px rgba(0, 119, 255, 0.7);
     }
 
-    /* Animation for fading in, moving, and fading out */
     @keyframes fadeInOutMove {
       0%, 100% { opacity: 0; transform: translate(0, 0); }
       10%, 80% { opacity: 0.2; }
       50% { opacity: 0.4; transform: translate(20px, -30px); }
     }
 
-    /* Different positions, font sizes, animation timing for each word */
+    /* Розміри шрифтів і позиції */
     .background-texts span:nth-child(1) {
       top: 10%;
       left: 15%;
@@ -63,12 +61,81 @@
       animation-duration: 14s;
       animation-delay: 5s;
     }
-    /* Add more nth-child selectors for all spans... */
+    .background-texts span:nth-child(3) {
+      top: 50%;
+      left: 25%;
+      font-size: 65px;
+      animation-duration: 13s;
+      animation-delay: 3s;
+    }
+    .background-texts span:nth-child(4) {
+      top: 65%;
+      left: 60%;
+      font-size: 62px;
+      animation-duration: 12s;
+      animation-delay: 7s;
+    }
+    .background-texts span:nth-child(5) {
+      top: 75%;
+      left: 10%;
+      font-size: 68px;
+      animation-duration: 11s;
+      animation-delay: 2s;
+    }
+    .background-texts span:nth-child(6) {
+      top: 20%;
+      left: 75%;
+      font-size: 64px;
+      animation-duration: 15s;
+      animation-delay: 9s;
+    }
+    .background-texts span:nth-child(7) {
+      top: 40%;
+      left: 80%;
+      font-size: 58px;
+      animation-duration: 14s;
+      animation-delay: 1s;
+    }
+    .background-texts span:nth-child(8) {
+      top: 55%;
+      left: 45%;
+      font-size: 70px;
+      animation-duration: 13s;
+      animation-delay: 6s;
+    }
+    .background-texts span:nth-child(9) {
+      top: 15%;
+      left: 35%;
+      font-size: 62px;
+      animation-duration: 12s;
+      animation-delay: 4s;
+    }
+    .background-texts span:nth-child(10) {
+      top: 80%;
+      left: 70%;
+      font-size: 60px;
+      animation-duration: 11s;
+      animation-delay: 8s;
+    }
+    .background-texts span:nth-child(11) {
+      top: 35%;
+      left: 15%;
+      font-size: 65px;
+      animation-duration: 15s;
+      animation-delay: 11s;
+    }
+    .background-texts span:nth-child(12) {
+      top: 60%;
+      left: 30%;
+      font-size: 64px;
+      animation-duration: 14s;
+      animation-delay: 10s;
+    }
 
-    /* Container for login form */
+    /* Форма логіну */
     .login-container {
       position: relative;
-      z-index: 10; /* above background words */
+      z-index: 10;
       background: #fff;
       border-radius: 24px;
       box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
@@ -115,7 +182,7 @@
       outline: none;
     }
 
-    /* SVG icons inside input fields */
+    /* Іконки у полях (SVG) */
     .input-group svg {
       position: absolute;
       top: 50%;
@@ -124,10 +191,9 @@
       width: 20px;
       height: 20px;
       fill: #0077ff;
-      pointer-events: none; /* ignore mouse events */
+      pointer-events: none;
     }
 
-    /* Login button styling */
     button {
       width: 100%;
       padding: 14px 18px;
@@ -141,10 +207,9 @@
       transition: background-color 0.4s ease, transform 0.2s ease;
     }
     button:hover {
-      background-color: #28a745; /* change to green on hover */
+      background-color: #28a745;
       transform: scale(1.03);
     }
-
     .register-link {
       margin-top: 30px;
       font-size: 15px;
@@ -162,62 +227,31 @@
   </style>
 </head>
 <body>
-  <!-- Background floating medical words -->
   <div class="background-texts">
-    <span>Лікування</span>
     <span>Здоров’я</span>
-    <span>Діагностика</span>
+    <span>Догляд</span>
+    <span>Лікування</span>
     <span>Профілактика</span>
-    <span>Реабілітація</span>
-    <span>Медикаменти</span>
-    <span>Пульс</span>
-    <span>Вакцинація</span>
-    <span>Терапія</span>
-    <span>Дієта</span>
-    <span>Хірургія</span>
-    <span>Аналізи</span>
-    <span>Серце</span>
-    <span>Відновлення</span>
+    <span>Медицина</span>
     <span>Пацієнт</span>
+    <span>Серце</span>
     <span>Лікар</span>
-    <span>Аптека</span>
-    <span>Санітарія</span>
-    <span>Обстеження</span>
-    <span>Тестування</span>
-    <span>Медсестра</span>
-    <span>Екстрена допомога</span>
-    <span>Біохімія</span>
-    <span>Симптоми</span>
-    <span>Рецепт</span>
-    <span>Вітаміни</span>
-    <span>Операція</span>
-    <span>Стоматологія</span>
-    <span>Анестезія</span>
-    <span>Психологія</span>
-    <span>Відпочинок</span>
-    <span>Фізіотерапія</span>
-    <span>Тиск</span>
-    <span>Інфекція</span>
-    <span>Гігієна</span>
-    <span>Пульмонологія</span>
-    <span>Рентген</span>
-    <span>Диспансер</span>
-    <span>Імунітет</span>
+    <span>Реабілітація</span>
+    <span>Підтримка</span>
+    <span>Відновлення</span>
+    <span>Консультація</span>
   </div>
 
-  <!-- Login form container -->
   <div class="login-container">
     <h2>Увійти в медичний портал</h2>
     <form method="POST" novalidate>
       <div class="input-group">
-        <!-- User icon -->
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M12 12c2.21 0 4-1.79 4-4S14.21 4 12 4 8 5.79 8 8s1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
         </svg>
         <input type="text" name="username" placeholder="Ім’я користувача" required />
       </div>
       <div class="input-group">
-        <!-- Lock icon -->
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M12 17a2 2 0 0 0 2-2v-3a2 2 0 1 0-4 0v3a2 2 0 0 0 2 2zm6-5v-2a6 6 0 0 0-12 0v2H4v8h16v-8h-2z"/>
         </svg>
