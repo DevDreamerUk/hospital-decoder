@@ -10,10 +10,7 @@ bp = Blueprint('main', __name__)
 def home():
     return render_template('home_page.html')
 
-
-auth_bp = Blueprint('auth', __name__)
-
-@auth_bp.route('/login', methods=['GET', 'POST'])
+@bp.route('/login')
 def login():
     if request.method == 'POST':
         username = request.form['username']

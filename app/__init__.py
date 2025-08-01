@@ -20,5 +20,6 @@ def create_app():
     from . import config
     from .models import post
     app.register_blueprint(routes.bp)
+    print(app.url_map)
 
     return app

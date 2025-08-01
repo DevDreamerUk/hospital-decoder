@@ -1,10 +1,10 @@
 Flask~=3.0.2
-Flask-SQLAlchemy==2.5.1
-SQLAlchemy==1.4.46
-gunicorn==21.2.0
-waitress==2.1.2
+Flask-SQLAlchemy==3.1.1
+SQLAlchemy==2.0.30
+gunicorn==23.0.0
+waitress==3.0.1
 python-dotenv==1.0.1
-psycopg2==2.9.6
+psycopg2==2.9.10
 yoyo-migrations~=9.0.0
 peewee==3.18.1
 Flask-Login~=0.6.3
