@@ -11,13 +11,10 @@
       margin: 0;
       padding: 0;
     }
-
     body {
       background: white;
       min-height: 100vh;
     }
-
-    /* Top banner */
     .top-banner {
       display: flex;
       align-items: center;
@@ -29,26 +26,21 @@
       font-weight: 700;
       box-shadow: 0 2px 15px rgba(0, 119, 255, 0.3);
     }
-
     .plus-icon {
       width: 100px;
       height: 100px;
       fill: white;
       transition: fill 0.3s ease;
     }
-
     .plus-icon:hover {
       fill: red;
     }
-
-    /* Horizontal top menu */
     .top-menu {
       display: flex;
       background: #f0f4f8;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
       height: 60px;
     }
-
     .top-menu a {
       flex: 1;
       display: flex;
@@ -62,20 +54,16 @@
       border-right: 1px solid #ddd;
       font-size: 16px;
     }
-
     .top-menu a:last-child {
       border-right: none;
     }
-
     .top-menu a:hover {
       background: #0077ff;
       color: white;
     }
-
     .container {
       padding: 40px 60px;
     }
-
     form {
       background: #f9f9f9;
       padding: 30px;
@@ -87,31 +75,50 @@
       margin-bottom: 40px;
       align-items: end;
     }
-
     label {
       font-weight: 600;
       color: #0077ff;
       margin-bottom: 6px;
       display: block;
     }
-
     input[type="text"],
     input[type="date"],
-    select {
+    select,
+    input[type="checkbox"] {
       width: 100%;
       padding: 12px;
       border: 1.5px solid #ccc;
       border-radius: 10px;
       font-size: 16px;
     }
-
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      margin-right: 8px;
+    }
+    input[type="checkbox"]:checked {
+      background-color: orange;
+      border-color: orange;
+    }
     input:focus,
-    select:focus {
+    select:focus,
+    input[type="checkbox"]:focus {
       border-color: #0077ff;
       outline: none;
       box-shadow: 0 0 8px rgba(0, 119, 255, 0.2);
     }
-
+    .checkbox-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .checkbox-group label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
     .search-btn {
       background-color: #0077ff;
       border: none;
@@ -126,46 +133,55 @@
       height: 45px;
       width: 45px;
     }
-
     .search-btn:hover {
       background-color: #3399ff;
     }
-
     .search-btn svg {
       width: 20px;
       height: 20px;
       fill: white;
     }
-
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      max-height: 700px;
+      overflow-y: auto;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 20px;
+      table-layout: auto;
     }
-
     thead {
       background-color: #0077ff;
       color: white;
+      position: sticky;
+      top: 0;
+      z-index: 1;
     }
-
     th,
     td {
-      padding: 16px;
+      padding: 8px 12px;
       border-bottom: 1px solid #ddd;
       text-align: left;
-      border-radius: 0;
+      white-space: nowrap;
     }
-
+    tr:last-child td {
+      border-bottom: none;
+    }
+    td + td {
+      border-left: 1px solid #ddd;
+    }
     tbody tr:hover {
       background-color: #f1f9ff;
     }
-
     @media (max-width: 768px) {
       .top-banner {
         font-size: 20px;
         padding: 30px 20px;
       }
-
       .container {
         padding: 20px;
       }
@@ -177,7 +193,7 @@
   <!-- Top Banner -->
   <div class="top-banner">
     <svg class="plus-icon" viewBox="0 0 24 24"><path d="M19 11H13V5a1 1 0 0 0-2 0v6H5a1 1 0 0 0 0 2h6v6a1 1 0 0 0 2 0v-6h6a1 1 0 0 0 0-2z"/></svg>
-    Наша турбота — Ваше здоров’я
+    Ваше здоров’я — наша турбота
   </div>
 
   <!-- Menu under banner -->
@@ -191,10 +207,15 @@
   <div class="container">
 
     <!-- Form -->
-    <form>
+    <form method="POST" action="{{ url_for('main.search') }}">
       <div>
         <label for="fullname">ПІБ</label>
-        <input type="text" id="fullname" name="fullname" placeholder="Введіть повне ім'я" />
+        <input type="text" id="fullname" name="fullname" list="doctors-list" placeholder="Введіть повне ім'я" />
+        <datalist id="doctors-list">
+          {% for doctor in doctors %}
+            <option value="{{ doctor }}"></option>
+          {% endfor %}
+        </datalist>
       </div>
 
       <div>
@@ -209,13 +230,23 @@
 
       <div>
         <label for="errors">Тип помилки</label>
-        <select id="errors" name="errors">
-          <option value="">Не вказано</option>
-          <option value="anemia">Анемія</option>
-          <option value="infection">Інфекція</option>
-          <option value="incorrect">Невірні дані</option>
-          <option value="none">Без помилок</option>
-        </select>
+        <input type="text" id="errors" name="error_type" list="errors-list" placeholder="Тип помилки" />
+        <datalist id="errors-list">
+          {% for error in error_types %}
+            <option value="{{ error }}"></option>
+          {% endfor %}
+        </datalist>
+      </div>
+
+      <div class="checkbox-group">
+        <label>
+          <input type="checkbox" name="flag_error" checked>
+          Помилковий
+        </label>
+        <label>
+          <input type="checkbox" name="emz_type" checked>
+          Взаємодія
+        </label>
       </div>
 
       <button type="submit" class="search-btn" title="Пошук">
@@ -224,27 +255,32 @@
     </form>
 
     <!-- Table -->
-    <table>
-      <thead>
-        <tr>
-          <th>Дата</th>
-          <th>Опис</th>
-          <th>Статус</th>
-          <th>Коментар</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>2025-06-01</td><td>Аналіз крові</td><td>Завершено</td><td>У нормі</td></tr>
-        <tr><td>2025-06-02</td><td>МРТ голови</td><td>В процесі</td><td>Очікується результат</td></tr>
-        <tr><td>2025-06-03</td><td>УЗД органів</td><td>Завершено</td><td>Без змін</td></tr>
-        <tr><td>2025-06-04</td><td>ЕКГ</td><td>Завершено</td><td>Синусовий ритм</td></tr>
-        <tr><td>2025-06-05</td><td>Рентген</td><td>Очікується</td><td>-</td></tr>
-        <tr><td>2025-06-06</td><td>Консультація терапевта</td><td>Призначено</td><td>На 10:00</td></tr>
-        <tr><td>2025-06-07</td><td>ПЛР тест</td><td>Завершено</td><td>Негативний</td></tr>
-        <tr><td>2025-06-08</td><td>Щеплення</td><td>Проведено</td><td>Без ускладнень</td></tr>
-      </tbody>
-    </table>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            {% for column in column_names %}
+              <th>{{ column }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% if results %}
+            {% for r in results %}
+              <tr>
+                {% for column in column_names %}
+                  <td>{{ r[column] }}</td>
+                {% endfor %}
+              </tr>
+            {% endfor %}
+          {% else %}
+            <tr><td colspan="{{ column_names|length }}">Немає даних</td></tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
 
+    <p>Знайдено рядків: {{ results_count }}</p>
   </div>
 </body>
 </html>
