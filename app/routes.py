@@ -2,6 +2,7 @@ from flask import Blueprint, request, render_template, redirect, url_for, flash
 from flask_login import login_user, login_required
 from sqlalchemy import inspect, desc, asc
 
+from app.constants import EXCLUDE_ERROR_LIST
 from app.extensions import db
 from app.models.emz_records import EMZRecord
 from app.models.user import User
@@ -15,7 +16,8 @@ def home():
     doctors = db.session.query(EMZRecord.executor_name).distinct().all()
     doctors = [d[0] for d in doctors if d[0]]
 
-    error_types = db.session.query(EMZRecord.error_comment).distinct().all()
+    error_types = db.session.query(EMZRecord.error_comment).filter(
+        ~EMZRecord.error_comment.in_(EXCLUDE_ERROR_LIST)).distinct().all()
     error_types = [e[0] for e in error_types if e[0]]
 
     return render_template('home_page.html', doctors=doctors, error_types=error_types)
@@ -37,12 +39,14 @@ def login():
 
     return render_template('login.html')
 
+
 @bp.route('/search', methods=['POST'])
 def search():
     doctors = db.session.query(EMZRecord.executor_name).distinct().all()
     doctors = [d[0] for d in doctors if d[0]]
 
-    error_types = db.session.query(EMZRecord.error_comment).distinct().all()
+    error_types = db.session.query(EMZRecord.error_comment).filter(
+        ~EMZRecord.error_comment.in_(EXCLUDE_ERROR_LIST)).distinct().all()
     error_types = [e[0] for e in error_types if e[0]]
 
     fullname = request.form.get('fullname')
@@ -53,6 +57,7 @@ def search():
     emz_type = request.form.get('emz_type')
 
     query = EMZRecord.query
+    query = query.filter(~EMZRecord.error_comment.in_(EXCLUDE_ERROR_LIST))
     if flag_error == 'on':
         query = query.filter(EMZRecord.included_in_statistics.ilike(f"%Ні%"))
     if emz_type == 'on':
